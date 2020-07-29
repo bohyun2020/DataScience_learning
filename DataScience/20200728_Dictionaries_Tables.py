@@ -106,8 +106,8 @@ d_1 = {'key_1': 'first_value',
       }
 
 print(d_1)
-"""
 
+"""
 """
 # How did we find out there are 4,433 apps with a 4+ content rating, or 622 apps with a 17+ rating?
 # 1. List로 심심해서 풀어봤쪄 
@@ -119,14 +119,16 @@ from csv import reader
 read_file = reader(opened_file)
 apps_data = list(read_file)
 
-n_apps = 0
+cont_ratings_4 = 0
 for row in apps_data[1:]:
     cont_rating = row[10]
     if cont_rating == '4+':
-        n_apps += 1
+        cont_ratings_4 += 1
 
-print(n_apps)
+print(cont_ratings_4)
 
+"""
+"""
 # 2번째 방법
 
 opened_file = open('AppleStore.csv', encoding = 'UTF-8')
@@ -135,15 +137,17 @@ from csv import reader
 read_file = reader(opened_file)
 apps_data = list(read_file)
 
-n_apps = []
+cont_ratings = []
 for row in apps_data[1:]:
     cont_rating = row[10]
-    user_id = row[0]
     if cont_rating == '4+':
-        n_apps.append(user_id)
+        cont_ratings.append(cont_rating)
 
-print(len(n_apps))
+print(len(cont_ratings))
+
+
 """
+
 
 """
 # Once we've created a dictionary, we can check whether a certain value exists in the dictionary
@@ -159,27 +163,36 @@ is_in_dictionary_2 = 987 in content_ratings
 # value를 검색하면 항상 False로 나옴 
 # because the search is done only over the dictionary's keys
 
-print(is_in_dictionary_1)    # is_in 이런식으로 variable name 짓는 거 기억하기
+print(is_in_dictionary_1)                                           # is_in 이런식으로 variable name 짓는 거 기억하기
 print(is_in_dictionary_2)
 
 if '17+' in content_ratings:
     result = "It exists"
     print(result)
 
-"""
 
 """
+
+
+
 # 7. Counting with Dictionaries
-
+"""
+    To update a dictionary value, we need to reference it by its corresponding 
+    dictionary key and then perform the updating operation we want.
+"""
+"""
 content_ratings = {'4+' : 4433, '9+' : 987, '12+' : 1155, '17+' : 622}
 
 content_ratings['4+'] = 0
 content_ratings['9+'] += 13
-content_ratings['12+'] -= 1155
+content_ratings['12+'] -= 155
 content_ratings['17+'] = '622'
 
 print(content_ratings)
+
+
 """
+
 """
 # 1. 예제로 푸는 Counting
 # because the search is done only over the dictionary's keys
@@ -188,14 +201,16 @@ print(content_ratings)
 content_ratings = {'4+' : 0, '9+' : 0, '12+' : 0, '17+' : 0}
 ratings = ['4+', '4+', '4+', '9+', '12+', '17+']
 
-for c_rating in ratings:                 # 첫 번째, 리스트 for loop 써서 정리 
-    if c_rating in content_ratings:      # 두 번째, '4+'이 content_ratings에 있는 지 비교
-        content_ratings[c_rating] += 1      # 있다면, value에 +1을 해주기
+for rating in ratings:
+    if rating in content_ratings:
+        content_ratings[rating] += 1
+    print(content_ratings)
 
-print(content_ratings)
 """
 
+
 # 2. 실전 Excel Counting 
+
 """
 opened_file = open('AppleStore.csv', encoding = 'UTF-8')
 from csv import reader
@@ -212,40 +227,49 @@ for row in apps_data[1:]:
 print(content_ratings)
 """
 
-# 8. Finding the Unique Values
-# Previously, we created the dictionary {'4+': 0, '9+': 0, '12+': 0, '17+': 0} 
-# before we looped over the data set to count the occurrence of each content rating. 
-# Unfortunately, this approach requires us to know beforehand the unique values we want to count.
 
-# 1) 예제 문제  **중요**
+# 8. Finding the Unique Values
+"""  
+    Previously, we created the dictionary {'4+': 0, '9+': 0, '12+': 0, '17+': 0} 
+    before we looped over the data set to count the occurrence of each content rating. 
+    Unfortunately, this approach requires us to know beforehand the unique values we want to count.
 """
+"""
+# 1) 예제 문제  **중요**
+
 content_ratings = {}
 ratings = ['4+', '4+', '4+', '9+', '12+', '17+']
 
-for c_rating in ratings:
-    if c_rating in content_ratings:
-        content_ratings[c_rating] += 1
+for rating in ratings:
+    if rating in content_ratings:
+        content_ratings[rating] += 1
     else:
-        content_ratings[c_rating] = 1
+        content_ratings[rating] = 1
 
 print(content_ratings)
+
+
 """
 """
 # 2) 연습문제 **중요**
+
 opened_file = open('AppleStore.csv', encoding = 'UTF-8')
-from csv import reader
+
+from csv import reader 
 read_file = reader(opened_file)
 apps_data = list(read_file)
 
-content_ratings = {}
+count_ratings = {}
 for row in apps_data[1:]:
     cont_rating = row[10]
-    if cont_rating in content_ratings:
-        content_ratings[cont_rating] += 1
+    if cont_rating in count_ratings:
+        count_ratings[cont_rating] += 1 
     else:
-        content_ratings[cont_rating] = 1
+        count_ratings[cont_rating] = 1
 
-print(content_ratings)
+print(count_ratings)
+
+
 """
 """
 # 3) 연습문제 **중요**
@@ -265,34 +289,38 @@ for row in apps_data[1:]:
 print(genre_counting)
 """
 
-# 10. Looping over Dictionaries
-# To transform frequencies to proportions or percentages, we can update 
-# the dictionary values individually by performing the required arithmetical operations.
+"""
+10. Looping over Dictionaries
 
+    To transform frequencies to proportions or percentages, we can update 
+    the dictionary values individually by performing the required arithmetical operations.
+"""
 """
 # 1) Proportion
 content_ratings = {'4+': 4433, '12+': 1155, '9+': 987, '17+': 622}
 total_number_of_apps = 7197
 
-for iteration_variable in content_ratings:
-    content_ratings[iteration_variable] /= total_number_of_apps
+content_ratings_proportion = {}
+for key in content_ratings:
+    value = content_ratings[key] / total_number_of_apps
+    content_ratings_proportion[key] = value
 
-print(content_ratings)
+print(content_ratings_proportion)
+
 """
+
 """
 # 2) Percentage
 content_ratings = {'4+': 4433, '12+': 1155, '9+': 987, '17+': 622}
 total_number_of_apps = 7197
 
-for iteration_variable in content_ratings:
-    content_ratings[iteration_variable] /= total_number_of_apps
-    content_ratings[iteration_variable] *= 100                                   #이거 잘 기억해두기 percentage로
+content_ratings_percentage = {}
+for key in content_ratings.keys():
+    proportion = content_ratings[key] / total_number_of_apps
+    percentage = proportion * 100
+    content_ratings_percentage[key] = percentage
 
-percentage_17 = content_ratings['17+'] 
-percentage_15_allowed = 100 - percentage_17
-
-print(percentage_17)
-print(percentage_15_allowed)
+print(content_ratings_percentage)
 """
 
 """
@@ -312,8 +340,8 @@ for key in content_ratings:                                                     
 
 print(c_ratings_proportions)
 print(c_ratings_percentage)
-"""
 
+"""
 """
 # 12. Frequency Tables for Numerical Columns
     # Creating frequency tables for certain columns may result in creating lengthy dictionaries
@@ -323,19 +351,17 @@ from csv import reader
 read_file = reader(opened_file)
 apps_data = list(read_file)
 
-size_freq = {}
+sizes = {}
 for row in apps_data[1:]:
     size = row[2]
-    if size in size_freq:
-        size_freq[size] += 1
+    if size in sizes:
+        sizes[size] += 1
     else:
-        size_freq[size] = 1
+        sizes[size] = 1
 
-print(len(size_freq))
-print(size_freq)
+print(sizes)
 
 """
-
 """
     # A lengthy frequency table is difficult to analyze. 
     # The lengthier the table, the harder it becomes to see any patterns. 
@@ -350,19 +376,20 @@ from csv import reader
 read_file = reader(opened_file)
 apps_data = list(read_file)
 
-data_sizes = []
+sizes = []
 for row in apps_data[1:]:
     size = float(row[2])
-    data_sizes.append(size)
+    sizes.append(size)
 
-print(min(data_sizes))
-print(max(data_sizes))
+print(min(sizes))
+print(max(sizes))
 
-# 왜 dict로 안했지? / dict으로 하는 방법도 생각해보자 
 """
+# 왜 dict로 안했지? -> Min / Max 값을 찾기 위해서 dict으로 안하고, list로 함. 
 
+"""
 # 13. Filtering for the Intervals
-"""
+
 opened_file = open('AppleStore.csv', encoding ='UTF-8')
 from csv import reader
 read_file = reader(opened_file)
@@ -374,12 +401,12 @@ data_sizes = {'0 - 10 MB': 0, '10 - 50 MB': 0, '50 - 100 MB': 0,
 for row in apps_data[1:]:
     data_size = float(row[2])
     
-    if data_size < 1000000:
-        data_sizes['0 - 10 MB'] += 1
+    if 0 <= data_size < 10000000:
+        data_sizes['0 - 10 MB'] += 1 
 
-    elif 1000000 <= data_size < 50000000:
+    elif 10000000 <= data_size < 50000000:
         data_sizes['10 - 50 MB'] += 1
-
+    
     elif 50000000 <= data_size < 100000000:
         data_sizes['50 - 100 MB'] += 1
 
@@ -388,8 +415,11 @@ for row in apps_data[1:]:
 
     elif 500000000 <= data_size:
         data_sizes['500 MB +'] += 1
-"""
 
+print(data_sizes)
+
+"""
+"""
 # 연습문제 
 
 opened_file = open('AppleStore.csv', encoding ='UTF-8')
@@ -422,3 +452,4 @@ for row in apps_data[1:]:
         data_sizes['500k - 1000k'] += 1
 
 print(data_sizes)
+"""
