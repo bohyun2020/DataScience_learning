@@ -17,7 +17,6 @@ a_list = [4444, 8897, 6340, 9896, 4835, 4324, 10, 6445,
 length = 0
 for element in a_list:
     length += 1
-    
 print(length)
 """
 """
@@ -28,13 +27,12 @@ a_list = [4444, 8897, 6340, 9896, 4835, 4324, 10, 6445,
           3993, 4881, 9500, 6701, 1199, 6251, 4432, 37]
 
 number_sum = 0
-for number in a_list:
-    number_sum += number
+for element in a_list:
+    number_sum += element
 
 print(number_sum)
 print(sum(a_list))
 """
-
 """
 # 2. Built-in Functions
 
@@ -60,12 +58,12 @@ for rating in ratings:
         content_ratings[rating] += 1
     else:
         content_ratings[rating] = 1
-
 print(content_ratings)
-"""
 
-# 3. Creating Our Own Functions
 """
+"""
+# 3. Creating Our Own Functions
+
     On the previous screen, we mentioned that our goal is to create a function that 
     generates a frequency table. This process, however, is a bit more complex, 
     so we'll start with more simple examples and build up from there toward that goal.
@@ -76,22 +74,18 @@ def square(a_number):
     return squared_number
 
 square_6 = square(6)
-square_4 = square(a_number=4)
-square_9 = square(a_number=9)
-
-print(square_6)
-print(square_4)
-print(square_9)
+print(squared_6)
 
 def greet_user(username):
     return f"Hello, {username.title()}"
 
 greet_bohyun = greet_user('Bohyun')
 print(greet_bohyun)
-"""
 
-# 4. The Structure of a Function
 """
+"""
+# 4. The Structure of a Function
+
     Structurally, the function above is composed of a header (which contains 
     the def statement), a body, and a return statement. Together, these three 
     elements make up the function's definition. We'll often use the phrase "inside
@@ -107,8 +101,6 @@ add_90 = add_10(number=90)
 print(add_30)
 print(add_90)
 """
-
-
 """
 # 5. Parameters and Arguments
     you can couple the return statement with an entire expression rather 
@@ -126,15 +118,15 @@ print(square(6))
 """
 """
 def square(a_number):
-    return a_number * a_number 
+    return a_number * a_number
 
 print(square(6))
 """
-
-
-# 6. Extract Values From Any Column
 """
-    creating a function that generates frequency tables for any column we want in our iOS apps data set.
+# 6. Extract Values From Any Column
+
+    creating a function that generates frequency tables for any column we want   # 완전 중요
+    in our iOS apps data set.
     완 전 중 요 
 """
 """
@@ -143,22 +135,16 @@ from csv import reader
 read_file = reader(opened_file)
 apps_data = list(read_file)
 
-# cont_ratings = []
-# for row in apps_data[1:]:
-#     cont_rating = row[10]
-#     content_ratings.append(cont_rating)
-
-def extract(index):                                                              # 완전 중요 
+def extract(index):
     column = []
     for row in apps_data[1:]:
         value = row[index]
-        column.append(row[index])
+        column.append(value)
     return column
 
-genres = extract(10)
-print(genres)
+cont_rating = extract(10)
+print(cont_rating)
 """
-
 """
 # 7. Creating Frequency Tables
     we'll create the second function. Remember that to create a frequency table 
@@ -184,6 +170,10 @@ print(content_ratings)
 # 2) 실전 Function을 이용한 자동화 응용 
     Feel free to experiment with the extract() and freq_table() functions 
     to easily create frequency tables for any column you want.
+
+    extract() -> column list 만들고
+    freq_table() -> column list를 활용해서 freq_table() dictionary 완성
+
 """
 """
 opened_file = open('AppleStore.csv', encoding='UTF-8')
@@ -195,28 +185,31 @@ def extract(index):                                                             
     column = []
     for row in apps_data[1:]:
         value = row[index]
-        column.append(row[index])
+        column.append(value)
     return column
-
-genres = extract(11)
 
 def freq_table(column):
     frequency_table = {}
-    for value in column:
-        if value in frequency_table:
-            frequency_table[value] += 1
+    for element in column:
+        if element in frequency_table:
+            frequency_table[element] += 1
         else:
-            frequency_table[value] = 1
+            frequency_table[element] = 1
     return frequency_table
 
-genres_tf = freq_table(genres)
-print(genres_tf)
-"""
+genres = extract(10)
+genres_ft = freq_table(genres)
+print(genres_ft)
 
+"""
 """
 # 8. Writing a Single Function
     we can write a single function to generate the frequency tables 
     for any column we want. Let's try that in the following exercise.
+
+    # 1번쨰 방법 column list(append) -> dictionary 로 연결 (2단계로 나뉘어짐. 단점) # 중요
+    # 2번째 방법 dict(variable[index] = value)로 바로 연결 
+        if statement -> True +=1 , False = 1 (1단계로 끝낼 수 있음)
 """
 """
 opened_file = open('AppleStore.csv', encoding='UTF-8')
@@ -228,7 +221,7 @@ def freq_table(index):
     frequency_table = {}
 
     for row in apps_data[1:]:
-        value = row[index]                        # column 이 아니라 value임 / float을 안써도 되나? 신기하네 되긴하네
+        value = row[index]
         if value in frequency_table:
             frequency_table[value] += 1
         else:
@@ -236,12 +229,9 @@ def freq_table(index):
 
     return frequency_table
 
-ratings_ft = freq_table(7)
-print(ratings_ft)
+genre_ft = freq_table(11)
+print(genre_ft)
 """
-
-
-
 """
 # 9. Reusability and Multiple Parameters
     One of the key aspects that make functions great is reusability.    
@@ -253,7 +243,7 @@ print(ratings_ft)
     we'd need something like freq_table(index, data_set)
 """
 """
-opened_file = open('AppleStore.csv')
+opened_file = open('AppleStore.csv', encoding='UTF-8')
 from csv import reader
 read_file = reader(opened_file)
 apps_data = list(read_file)
@@ -271,7 +261,9 @@ def freq_table(data_set, index):
             
     return frequency_table
 
-ratings_ft = freq_table(data_set=apps_data, 7)
+ratings_ft = freq_table(apps_data, 7)
+print(ratings_ft)
+
 """
 """
 # 10. Keyword and Positional Arguments
@@ -296,6 +288,7 @@ def freq_table(data_set, index):
 content_ratings_ft = freq_table(apps_data, 10)
 ratings_ft = freq_table(data_set=apps_data, index=7)
 genres_ft = freq_table(index=11, data_set=apps_data)
+
 """
 """
 # 11. Combining Functions
@@ -313,28 +306,41 @@ def find_sum(a_list):
 def find_length(a_list):
     length = 0
     for element in a_list:
-        length += 1
+        length += 1 
     return length
 
 def mean(a_list_of_numbers):
-    sum_list = find_sum(a_list=a_list_of_numbers)
-    len_list = find_length(a_list=a_list_of_numbers)
+    sum_list = find_sum(a_list_of_numbers)
+    len_list = find_length(a_list_of_numbers)
     mean_list = sum_list / len_list
 
     return mean_list
 
-list_1 = [10, 5, 15]
-print(mean(a_list_of_numbers=list_1))
+list_1 = [5, 10, 15]
+print(mean(list_1))
+"""
 
 # 2) Reusing functions inside other functions enables us to elegantly build 
 #    complex functions by abstracting away function definitions:
+"""
+def find_sum(a_list):
+    a_sum = 0
+    for element in a_list:
+        a_sum += element
+    return a_sum
+
+def find_length(a_list):
+    length = 0
+    for element in a_list:
+        length += 1 
+    return length
 
 def mean(a_list_of_numbers):
     return find_sum(a_list_of_numbers) / find_length(a_list_of_numbers)
 
-print(mean([10, 5, 15]))
+print(mean([5, 10, 15]))
 """
-"""
+
 # 연습문제
     # Write a function named mean() that computes the mean for any column we want from a data set.
 
@@ -362,10 +368,10 @@ def find_length(a_list):
         length += 1
     return length
 
-def mean(data_set, index):
+def mean(data_set, index):                                                      # 중요! 연습 더 해야함.
     column = extract(data_set, index)
     return find_sum(column) / find_length(column)
 
 avg_price = mean(apps_data, 4)
 print(avg_price)
-"""
+
