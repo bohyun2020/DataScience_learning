@@ -340,7 +340,7 @@ def mean(a_list_of_numbers):
 
 print(mean([5, 10, 15]))
 """
-
+"""
 # 연습문제
     # Write a function named mean() that computes the mean for any column we want from a data set.
 
@@ -374,4 +374,4 @@ def mean(data_set, index):                                                      
 
 avg_price = mean(apps_data, 4)
 print(avg_price)
-
+"""
