@@ -1,31 +1,47 @@
 """
 # 1. Interfering with the Built-in Functions
+
+    Using the names of built-in functions to name our own functions is highly 
+    discouraged because it may lead to abnormal function behavior, and it can 
+    also confuse other people reading our code.
+
+    using the name sum() for our function above interferes with the built-in 
+    sum() function. When we call sum(), Python won't run the built-in sum() 
+    function anymore — it will run instead the sum() function that we wrote.
+
     Run the code del max to delete the max() function you wrote.
     This will allow you to use the built-in max() function again.
+
 """
 """
+# 1) Example 중요                                                                 # 중요
 a_list = [1, 8, 10, 9, 7]
 print(max(a_list))
 
 def max(a_list):
     return "No max value returned"
 
-max_val_test_0 = max(a_list)
-print(max_val_test_0)
-
 del max
 
-print(max(a_list))
+max_1 = max(a_list)
+print(max_1)
+
 """
 """
 # 2. Variable Names and Built-in Functions
     'int' object is not callable
+
+    we learned that we shouldn't use the names of built-in functions to name 
+    our own functions. We should also avoid naming variables using the names of 
+    the built-in functions because this also causes unwanted interference.
 """
 """
 sum = 5 + 12
 list_1 = [5, 10, 15]
-sum(list_1)             # 17(list_1) The integer 17 can't be called like a function
-                        # hence the error message 'int' object is not callable.
+sum(list_1)             
+
+# 17(list_1) The integer 17 can't be called like a function
+# hence the error message 'int' object is not callable.
 
 """
 """
@@ -34,14 +50,20 @@ sum(list_1)             # 17(list_1) The integer 17 can't be called like a funct
     — we call these values default arguments.
 
     Default arguments are not set in stone,                                     ** Important ** 
-    and can be easily modified when we call a function:
+    *** and can be easily modified when we call a function: ***
 """
 """
-def add_value(x, constant=10):
-    return x + constant
+def add_value(x, contant=10):
+    return x + contant
 
-print(add_value(3))
-print(add_value(3, constant=50))
+value_1 = add_value(5)
+value_2 = add_value(5, contant=15)
+value_3 = add_value(5, 20)
+
+print(value_1)
+print(value_2)
+print(value_3)
+
 """
 """
     If all parameters have default arguments, it then becomes possible 
@@ -50,6 +72,10 @@ print(add_value(3, constant=50))
     Default arguments come in handy when we anticipate that we'll use an 
     argument frequently — this can save us some time when we reuse the functions. 
     Default arguments are also very useful for building complex functions
+
+    Default arguments come in handy when we anticipate that we'll use an argument 
+    frequently — this can save us some time when we reuse the functions. 
+    Default arguments are also very useful for building complex functions.
 
 """
 """
@@ -75,6 +101,7 @@ def open_dataset(file_name='AppleStore.csv'):
 
 apps_data = open_dataset()
 print(apps_data[1:6])
+
 """
 """
 # 4. The Official Python Documentation
@@ -97,17 +124,40 @@ print(apps_data[1:6])
     https://docs.python.org/3/
 """
 """
-# 5. Multiple Return Statements
+ # round(2.675, 2) gives 2.67 instead of the expected 2.68. This is not a bug: 
+ # it’s a result of the fact that most decimal fractions can’t be represented exactly as a float
+
+float_1 = round(2.675, 2)
+print(float_1)
+
+one_decimal = round(3.43, 1)
+print(one_decimal)
+
+two_decimals = round(0.23321, 2)
+print(two_decimals)
+
+five_decimals = round(921.2225227, 5)
+print(five_decimals)
+
+"""
+"""
+# 5. Multiple Return statements                                                 # 중요
+    What if we want to write a function that returns a sum and a difference 
+    at the same time?
+
     it's possible to use multiple return statements.
+    => if statement를 활용한다. 
     Combining return with an if statement and an else clause, we can implement 
     the ability to specify whether we want a sum or a difference returned:
 """
 """
 # 1) Example
+
 def sum_or_difference(a, b):
     a_sum = a + b
     difference = a - b
     return ?
+
 """
 """
 def sum_or_difference(a, b, do_sum=True):
@@ -149,9 +199,9 @@ def open_dataset(file_name='AppleStore.csv', header=True):
     data = list(read_file)
     
     if header:
-        return data[1:]
-    else:
-        return data
+        return data[1:]:
+    else
+        return data:
 
 apps_data = open_dataset()
 print(apps_data)
@@ -169,9 +219,8 @@ def sum_and_difference(a, b):
     difference = a - b 
     return a_sum, difference
 
-sum_diff = sum_and_difference(10, 5)
-print(sum_diff)
-type(sum_diff)
+b_sum, b_diff = sum_and_difference(10, 5)
+print(b_sum, b_diff)
 """
 """
     One thing you might find a bit odd is the structure of the output (20, 10). 
@@ -228,16 +277,12 @@ def open_dataset(file_name='AppleStore.csv', header=True):
 
     if header:
         return data[0], data[1:]
-
     else:
         return data
 
 all_data = open_dataset()
 header = all_data[0]
-apps_data = all_data[1]
-
-print(header)
-print(apps_data)
+apps_data = all_data[1:]
 """
 """
 # 7. More About Tuples
@@ -296,6 +341,7 @@ first_element, second_element = a_list
 
 print(first_element)
 print(second_element)
+
 """
 """
     # We can use this variable assignment technique with functions that return multiple variables.
@@ -347,10 +393,9 @@ def print_constant():
 
 j = print_constant()
 print(j)
-print(type(j))
 """
 """
-# 9. Scopes — Global and Local
+# 9. Scopes — Global and local
     the quirk is that Python only saves the x variable temporarily. Python saves
     x into a kind of temporary memory, which is immediately erased after 
     the print_constant() finishes running.
@@ -369,6 +414,7 @@ print(type(j))
 e = 'mathematical constant'
 a_sum = 1000
 length = 50
+
 
 def exponential(x):
     e = 2.72
