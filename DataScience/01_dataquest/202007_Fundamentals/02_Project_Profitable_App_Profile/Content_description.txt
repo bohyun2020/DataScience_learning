@@ -1,0 +1,42 @@
+"id" : App ID
+"track_name": App Name
+"size_bytes": Size (in Bytes)
+"currency": Currency Type
+"price": Price amount
+"ratingcounttot": User Rating counts (for all version)
+"ratingcountver": User Rating counts (for current version)
+"user_rating" : Average User Rating value (for all version)
+"userratingver": Average User Rating value (for current version)
+"ver" : Latest version code
+"cont_rating": Content Rating
+"prime_genre": Primary Genre
+"sup_devices.num": Number of supporting devices
+"ipadSc_urls.num": Number of screenshots showed for display
+"lang.num": Number of supported languages
+"vpp_lic": Vpp Device Based Licensing Enabled
+
+* Content Rating
+iOS and iPadOS App Store
+Main article: App Store (iOS) § Application ratings
+Apple's rating system for the App Store follows the following rubric:[1]
+
+Rated 4+: Contains no objectionable material.
+Rated 9+: May contain content unsuitable for children under the age of 9.
+Rated 12+: May contain content unsuitable for children under the age of 12.
+Rated 17+: May contain content unsuitable for children under the age of 17.
+Apps rated 17+ are prohibited from purchase by younger users.[2]
+
+Google Play
+Up until March 17, 2015 Google Play used the following rubric:[3][4]
+
+Everyone
+Low maturity
+Medium maturity
+High maturity
+Google now uses the International Age Rating Coalition (IARC) in most countries not represented by a rating authority, whilst countries or regions with a superimposed video game rating authority (e.g. ESRB and PEGI) continues applying their own ratings where applicable.[5] However, a new Google Play Rating system is used exclusively for non-gaming apps in South Korea.[6] These ratings include:
+
+3+
+7+
+12+
+16+
+18+

@@ -1,5 +1,4 @@
-wecome_message = 'Hello Jupyter!'
-first_cell = True
-
-if first_cell:
-    print(welcome_message)
+print('Bohyun \nPark')
+print('Bohyun')
+print('\n')
+print('Park')
