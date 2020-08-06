@@ -259,3 +259,113 @@ for app in ios:
 explore_data(android_english, 1, 3, True)
 explore_data(ios_english, 1, 3, True)
 """
+"""
+10. Most Common Apps by Genre: Part Two
+    we'll need to make use of the built-in sorted() function. 
+    This function takes in an iterable data type (like a list, dictionary, 
+    tuple, etc.), and returns a list of the elements of that iterable sorted 
+    in ascending or descending order (the reverse parameter controls 
+    whether the order is ascending or descending).
+"""
+"""
+# 1) Sorting a list Temporarily with the sorted() Function
+a_list = [50, 20, 100]
+print(sorted(a_list))
+print(sorted(a_list, reverse=True))
+
+
+# 2) Sorting a list Permanently with the sort() Method.
+b_list = [20, 10, 300]
+b_list.sort()
+print(b_list)
+
+# 3) Printing a list in Reverse Order
+c_list = [80, 10, 200]
+c_list.reverse()
+print(c_list)
+
+"""
+"""
+    # 4) The sorted() function doesn't work too well with dictionaries because 
+        it only considers and returns the dictionary keys.
+
+        However, the sorted() function works well if we transform the dictionary
+        into a list of tuples. 
+        the dictionary value comes first, and the dictionary key comes second:
+"""
+"""
+
+freq_table = {'Genre_1' : 50, 'Genre_3' : 20, 'Genre_2' : 100}
+print(sorted(freq_table))
+
+freq_table_as_tuple = [(50, 'Genre_1'), (20, 'Genre_3'), (100, 'Genre_2')]
+print(sorted(freq_table_as_tuple))
+
+"""
+"""
+This is a bit overcomplicated to just sort a dictionary, but there are much 
+simpler ways to do this once we learn more advanced techniques. 
+Using the workaround above, we wrote a helper function for you named display_table()
+"""
+
+def freq_table(dataset, index):                                                     
+    table = {}
+    total = 0
+
+    for row in dataset:
+        total += 1
+        value = row[index]
+        if value in table:
+            table[value] += 1
+        else:
+            table[value] = 1
+
+    table_percentages = {}
+    for key in table:
+        percentage = (table[key] / total) * 100
+        table_percentages[value] = percentage
+
+    return table_percentages
+
+def display_table(dataset, index):
+    table = freq_table(dataset, index)
+    table_display = []
+    for key in table:
+        key_val_as_tuple = (table[key], key)
+        table_display.append(key_val_as_tuple)
+
+    table_sorted = sorted(table_display, reverse=True)
+    for entry in table_sorted:
+        print(entry[1], ':', entry[0])
+
+
+def freq_table(dataset, index):                                                 # 중요: 다시 공부하기
+    table = {}
+    total = 0
+    
+    for row in dataset:
+        total += 1
+        value = row[index]
+        if value in table:
+            table[value] += 1
+        else:
+            table[value] = 1
+    
+    table_percentages = {}
+    for key in table:
+        percentage = (table[key] / total) * 100
+        table_percentages[key] = percentage 
+    
+    return table_percentages
+
+
+def display_table(dataset, index):
+    table = freq_table(dataset, index)
+    table_display = []
+    for key in table:
+        key_val_as_tuple = (table[key], key)
+        table_display.append(key_val_as_tuple)
+        
+    table_sorted = sorted(table_display, reverse = True)
+    for entry in table_sorted:
+        print(entry[1], ':', entry[0])
