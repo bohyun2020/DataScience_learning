@@ -132,10 +132,14 @@ print(len(duplicate_apps))
 
 print('Expected length: ', len(android) - len(duplicate_apps))
 
+"""
+"""
+# 2) Empty dict를 이용해서 name과 최고 review 값 파악.
+# Why? -> list로 하면, name없이 값만 나타나기 때문에 어느 app에 속하는 지 알 수 없다.
+# 단, dict는 key, value fair이므로 name이 app으로 지정된다면 어디 값이 최고인지 알 수 있다.
 
-# 2) Empty dict를 이용해서 name과 최고 review 값 파악. 
 
-max_reviews = {}
+max_reviews = {}  # { [name] : [max_review], }
 for app in android:
     name = app[0]
     n_reviews = float(app[3])                                                   # 중요: 숫자는 float 함수 쓰는걸 기억
@@ -148,11 +152,9 @@ for app in android:
 print(len(max_reviews))
 
 # 3) 2개의 empty list를 만들어서 
+#   Why? -> max의 경우 값은 값이 여러개 있을 수 있기 때문에, 중복 입력을 방지하기 위해
 #       1. list에 app data 나열 ( review 값은 최고값 적용 -> 총 개수 9659)
 #       2. list에 name 값 나열 ( 총 개수 9659)
-
-android_clean = [] # which will store our new cleaned data set
-already_added = [] # which will just store app names
 
 for app in android:
     name = app[0]
@@ -164,8 +166,6 @@ for app in android:
 
 print(len(android_clean))
 print(len(already_added))
-
-
 
 """
 """
@@ -221,6 +221,9 @@ print(is_english('😜'))
      not perfect, but it should be fairly effective.
 """
 """
+# Ord(character)로 분석했을 때, 총 3개의 알파벳이 127보다 클(>) 경우에는 그 string은 
+#   non-English로 간주(True, False로 return)
+
 def is_english(string):                                                         # 중요 꼭 기억하기 
     non_ascii = 0
 
@@ -244,6 +247,7 @@ print(is_english('爱奇艺PPS -《欢乐颂2》电视剧热播'))
     otherwise it should return True.
 """
 """
+
 android_english = []                                                             # 방법 중요 꼭 알기
 for app in android:
     name = app[0]
@@ -270,6 +274,7 @@ explore_data(ios_english, 1, 3, True)
 """
 # 1) Sorting a list Temporarily with the sorted() Function
 a_list = [50, 20, 100]
+
 print(sorted(a_list))
 print(sorted(a_list, reverse=True))
 
@@ -277,6 +282,8 @@ print(sorted(a_list, reverse=True))
 # 2) Sorting a list Permanently with the sort() Method.
 b_list = [20, 10, 300]
 b_list.sort()
+print(b_list)
+b_list.reverse()
 print(b_list)
 
 # 3) Printing a list in Reverse Order
@@ -307,65 +314,41 @@ This is a bit overcomplicated to just sort a dictionary, but there are much
 simpler ways to do this once we learn more advanced techniques. 
 Using the workaround above, we wrote a helper function for you named display_table()
 """
+"""
+# { } 에 key, value 값을 넣어서 frequency 확인하기
+# { } 위에 dict를 이용해서 percentage 확인하기 
 
-def freq_table(dataset, index):                                                     
-    table = {}
-    total = 0
+def freq_table(dataset, index):
+    table = {}  # [game] : 총52개 
+    total = 0  # 총 column의 개수
 
     for row in dataset:
-        total += 1
         value = row[index]
+        total += 1
+
         if value in table:
             table[value] += 1
         else:
             table[value] = 1
 
-    table_percentages = {}
+    table_percentages = {} # { [game] : 0.62(%)}, }
     for key in table:
         percentage = (table[key] / total) * 100
-        table_percentages[value] = percentage
+        table_percentages[key] = percentage
 
     return table_percentages
 
+
 def display_table(dataset, index):
-    table = freq_table(dataset, index)
-    table_display = []
+    table = freq_table(dataset, index) # { [game] : 0.62(%)}, } 
+
+    table_display = [] # [(0.62(%), game)]
     for key in table:
-        key_val_as_tuple = (table[key], key)
-        table_display.append(key_val_as_tuple)
+        table_as_tuple = (table[key], key)
+        table_display.append(table_as_tuple)
 
     table_sorted = sorted(table_display, reverse=True)
     for entry in table_sorted:
-        print(entry[1], ':', entry[0])
+        print(f"{entry[1]} : {entry[0]}")
 
-
-def freq_table(dataset, index):                                                 # 중요: 다시 공부하기
-    table = {}
-    total = 0
-    
-    for row in dataset:
-        total += 1
-        value = row[index]
-        if value in table:
-            table[value] += 1
-        else:
-            table[value] = 1
-    
-    table_percentages = {}
-    for key in table:
-        percentage = (table[key] / total) * 100
-        table_percentages[key] = percentage 
-    
-    return table_percentages
-
-
-def display_table(dataset, index):
-    table = freq_table(dataset, index)
-    table_display = []
-    for key in table:
-        key_val_as_tuple = (table[key], key)
-        table_display.append(key_val_as_tuple)
-        
-    table_sorted = sorted(table_display, reverse = True)
-    for entry in table_sorted:
-        print(entry[1], ':', entry[0])
+"""
