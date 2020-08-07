@@ -314,13 +314,13 @@ This is a bit overcomplicated to just sort a dictionary, but there are much
 simpler ways to do this once we learn more advanced techniques. 
 Using the workaround above, we wrote a helper function for you named display_table()
 """
-"""
+
 # { } 에 key, value 값을 넣어서 frequency 확인하기
 # { } 위에 dict를 이용해서 percentage 확인하기 
 
 def freq_table(dataset, index):
     table = {}  # [game] : 총52개 
-    total = 0  # 총 column의 개수
+    total = 0   # 총 column의 개수
 
     for row in dataset:
         value = row[index]
@@ -332,6 +332,7 @@ def freq_table(dataset, index):
             table[value] = 1
 
     table_percentages = {} # { [game] : 0.62(%)}, }
+    
     for key in table:
         percentage = (table[key] / total) * 100
         table_percentages[key] = percentage
@@ -352,3 +353,20 @@ def display_table(dataset, index):
         print(f"{entry[1]} : {entry[0]}")
 
 """
+"""
+# 12. Most Popular Apps by Genre on the App Store
+    To calculate the average number of user ratings for each genre, we'll use a 
+    for loop inside of another for loop. This is an example of a for loop used 
+    inside another for loop:
+"""
+"""
+some_strings = ['FIRST', 'SECOND']
+some_integers = [1, 2, 3, 4, 5]
+
+for string in some_strings:
+    print(string)
+
+    for integer in some_integers:
+        print(integer)
+"""
+
