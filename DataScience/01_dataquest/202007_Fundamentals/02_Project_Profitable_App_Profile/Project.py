@@ -314,13 +314,13 @@ This is a bit overcomplicated to just sort a dictionary, but there are much
 simpler ways to do this once we learn more advanced techniques. 
 Using the workaround above, we wrote a helper function for you named display_table()
 """
-
+"""
 # { } 에 key, value 값을 넣어서 frequency 확인하기
 # { } 위에 dict를 이용해서 percentage 확인하기 
 
 def freq_table(dataset, index):
     table = {}  # [game] : 총52개 
-    total = 0   # 총 column의 개수
+    total = 0  # 총 column의 개수
 
     for row in dataset:
         value = row[index]
@@ -332,7 +332,6 @@ def freq_table(dataset, index):
             table[value] = 1
 
     table_percentages = {} # { [game] : 0.62(%)}, }
-    
     for key in table:
         percentage = (table[key] / total) * 100
         table_percentages[key] = percentage
@@ -369,4 +368,172 @@ for string in some_strings:
     for integer in some_integers:
         print(integer)
 """
+"""
 
+
+def freq_table(dataset, index):
+    table = {}  # [game] : 총52개 
+    total = 0  # 총 column의 개수
+
+    for row in dataset:
+        value = row[index]
+        total += 1
+
+        if value in table:
+            table[value] += 1  # {[game]:[총 5320개], [Productivity]:[총 4200개],} 
+        else:
+            table[value] = 1
+
+    table_percentages = {} # { [game] : 0.62(%)},}
+    for key in table:
+        percentage = (table[key] / total) * 100
+        table_percentages[key] = percentage
+
+    return table_percentages
+
+
+def display_table(dataset, index):
+    table = freq_table(dataset, index) # { [game] : 0.62(%)}, } 
+
+    table_display = [] # [(0.62(%), game)]
+    for key in table:
+        table_as_tuple = (table[key], key)
+        table_display.append(table_as_tuple)
+
+    table_sorted = sorted(table_display, reverse=True)
+    for entry in table_sorted:
+        print(f"{entry[1]} : {entry[0]}")
+
+
+
+genre_ios = freq_table(ios_final, -5) # return table_percentage = { [game] : [0.62(%)], [Productivity] : [0.22(%)], etc} 
+
+for genre in genre_ios:  # genre = [ game, Productivity, Weather, etc ]
+    total = 0 # sum for rating_count_tot
+    len_genre = 0 # total length of apps that belong to that genre
+    
+    for app in ios_final:
+        genre_app = app[-5] # app[-5] = genre_app = [ game, Productivity, Weather, etc ]
+        if genre_app == genre:
+            n_ratings = float(app[5])   # rating_count_tot
+            total += n_ratings             # total + rating_count_tot
+            len_genre += 1                # total length 
+    avg_n_ratings = total / len_genre
+    print(genre, ':', avg_n_ratings)
+
+
+genre_ios = freq_table(ios_final, -5)
+
+for genre in genre_ios:
+    total = 0
+    len_genre = 0 
+
+    for app in ios_final:
+        genre_app = app[-5]
+        if genre_app == genre:
+            n_ratings = float(app[5])
+            total += n_ratings
+            len_genre += 1 
+
+    avg_n_ratings = total / len_genre
+    print(genre, ':', avg_n_ratings)
+
+"""
+"""
+# 새로 만듬                                                                      ******** 8/8 중요합니다. *********
+"""
+"""
+def freq_table(dataset, index):
+    table = {}  # {[game] : [tot 5320], etc} 
+    total = 0  # tot n of columns
+
+    for row in dataset:
+        value = row[index]
+        total += 1
+
+        if value in table:
+            table[value] += 1  # {[game]:[tot 5320], [Productivity]:[tot 4200],} 
+        else:
+            table[value] = 1
+
+    table_avg_n_rating = {} # = { [Navigation] : [total n_ratings / len_genre] }
+    for genre in table:  # genre = [ game, Productivity, Weather, etc ]
+        total = 0 # sum for rating_count_tot
+        len_genre = 0 # total length of apps that belong to that genre
+
+        for app in ios_final:
+            genre_app = app[-5] # app[-5] = genre_app = [ game, Productivity, Weather, etc ]
+
+            if genre_app == genre:
+                n_ratings = float(app[5])   # rating_count_tot
+                total += n_ratings             # total + rating_count_tot
+                len_genre += 1                # total length
+        avg_n_ratings = total / len_genre
+        table_avg_n_rating[genre] = avg_n_ratings
+
+    return table_avg_n_rating
+    
+display_table(ios_final, -5)
+"""
+"""
+for app in ios_final:
+    genre = app[-5]
+
+    if genre == 'Navigation':
+        print(app[1], ' : ', app[5])
+
+"""
+"""
+# 13. Most Popular Apps by Genre on Google Play
+    To remove characters from strings, we can use str.replace(old, new) method 
+    (just like list.append() or list.copy(), str.replace() is a special kind 
+    of function called method.
+
+    
+"""
+"""
+
+#1) str.replace() takes in two parameters, old and new, and replaces all 
+#   occurrences of old within a string with new
+
+n_installs = '100,000+'
+print(n_installs.replace('+', 'plus'))
+print(n_installs.replace('1', 'one'))
+print(n_installs.replace('0', ' Young '))
+
+# 2) To remove certain characters, we can replace them with the empty string
+
+n_installs = '100,000+'
+n_installs = n_installs.replace('+', '')
+print(n_installs)
+n_installs = n_installs.replace(',', '')
+print(n_installs)
+
+"""
+"""
+# 이건 내 생각 
+android_final_replace = []
+for app in android_final:
+    installs = app[5]
+    installs = installs.replace('+', '')
+    installs = installs.replace(',', '')
+    app[5] = installs
+    android_final_replace.append(app)
+print(android_final_replace)
+"""
+
+categories_android = freq_table(android_final, 1)
+
+for category in categories_android:
+    total = 0
+
+    for app in android_final:
+        if app[1] == category:
+            installs = app[5]
+            installs = installs.replace('+', '')
+            installs = installs.replace(',', '')
+            app[5] = float(installs)
+
+            total += installs
+
+    print(app[1], ':', app[5])
