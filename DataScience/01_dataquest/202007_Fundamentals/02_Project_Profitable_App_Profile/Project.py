@@ -526,14 +526,14 @@ categories_android = freq_table(android_final, 1)
 
 for category in categories_android:
     total = 0
-
+    n_length = 0
+    
     for app in android_final:
         if app[1] == category:
-            installs = app[5]
+            installs = str(app[5])
             installs = installs.replace('+', '')
             installs = installs.replace(',', '')
-            app[5] = float(installs)
-
-            total += installs
-
-    print(app[1], ':', app[5])
+            total += float(installs)
+            n_length += 1 
+    avg_n_installs = total / n_length
+    print(category, ':', avg_n_installs)
