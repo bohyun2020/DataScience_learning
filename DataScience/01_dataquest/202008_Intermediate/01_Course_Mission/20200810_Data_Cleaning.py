@@ -72,6 +72,10 @@ fav_color = "red is my favorite color"
 fav_color = fav_color.replace("red", "Red")
 print(fav_color)
 
+fav_color = "Pink is my favorite color"
+fav_color = fav_color.replace("Pink", "Black")
+print(fav_color)
+
 """
 """
     # 2) Exercise
@@ -99,21 +103,20 @@ for n in nationalities:
 """
 """
     # 2) Exercise
+
 for row in moma:
     nationality = row[2]
-    gender = row[5]
-
     nationality = nationality.replace("(", "")
     nationality = nationality.replace(")", "")
     row[2] = nationality
 
-    gender = gender.replace("(", "")
+    gender = row[5]
     gender = gender.replace(")", "")
+    gender = gender.replace("(", "")
     row[5] = gender
 
-    print(nationality)
-    print(gender)
- """
+
+"""
 """
  # 5. String Capitalization
 
@@ -138,14 +141,20 @@ print(my_string_title)
 """
 """
 # 2) Exercise
+    The Gender column in our data set contains four unique values:
+
+    "" (an empty string)
+    "Male"
+    "Female"
+    "male"
+"""
+"""
 for row in moma:
     gender = row[5]
 
-    # convert the gender to title case.
     gender = gender.title()
 
-    # if there is no gender, set a descriptive vale
-    if not gender:
+    if not gender:    # if gender == "": 랑도 같은데, 해설 표현 방식 익히기        ******** 매우 중요 ************
         gender = "Gender Unknown/Other"
 
     row[5] = gender
@@ -180,10 +189,19 @@ for row in moma:
 
 """
 """
-for row in moma[:5]:
-    birth_date = row[3]
-    death_date = row[4]
-    print([birth_date], [death_date])
+birth_date = '(1947)'
+death_date = '(2013)'
+print([birth_date], [death_date])
+
+birth_date = '(1947)'
+death_date = '(2013)'
+print((birth_date), (death_date))
+
+
+# for row in moma[:5]:
+#     birth_date = row[3]
+#     death_date = row[4]
+#     print([birth_date, death_date])
 """
 """ Result 
 ['(1947)', '(2013)']
@@ -193,6 +211,7 @@ for row in moma[:5]:
 ['(1857)', '(1927)']
 """
 """
+
 def clean_convert(date):
     date = date.replace("(", "")
     date = date.replace(")", "")
@@ -210,32 +229,34 @@ print(type(cleaned_date))
 
 birth_date_1 = ""
 cleaned_date_1 = clean_convert(birth_date_1)
+"""
+"""
 
-"""
-"""
 # One way to handle these scenarios is to use an if statement to make sure 
 # we aren't encountering an empty string before we convert our value.
 
+date_1 = "(1987)"
+
 def clean_convert(date):
 
-    if date != "":
+    if date:                                                                    # if date != "": 랑 같다.
         date = date.replace("(", "")
         date = date.replace(")", "")
         date = int(date)
     return date
 
-clean_convert("")
+print(clean_convert(date_1))
 
-
-for row in moma:
-    begin_date = row[3]
-    end_date = row[4]
-
-    begin_date = clean_convert(begin_date)
-    end_date = clean_convert(end_date)
-    row[3] = begin_date
-    row[4] = end_date
 """
+# for row in moma:
+#     begin_date = row[3]
+#     end_date = row[4]
+
+#     begin_date = clean_convert(begin_date)
+#     end_date = clean_convert(end_date)
+#     row[3] = begin_date
+#     row[4] = end_date
+
 """
 # 7. Parsing Numbers from Complex Strings, Part One
 
@@ -264,7 +285,6 @@ This column contains data in many different formats:
 
 """
 """
-
     # 1 ) Example
 
 strings = ["good!", "morn?ing", "good?!", "morniZZZZng"]                         # 중요 연습!!!
@@ -284,7 +304,15 @@ for s in strings:            # strings(많은) 을 for loop 통해서 한개 만
 print(cleaned_strings)
 """
 """
-# 2 ) Exercise
+# 2 ) Exercise           
+
+cars = ['honda', 'hyundai', 'kia']                                              #왜 remove나 del statement 안쓸까?   
+del cars[0]
+print(cars)
+
+cars.remove('kia')
+print(cars)
+
 test_data = ["1912", "1929", "1913-1923",
              "(1951)", "1994", "1934",
              "c. 1915", "1995", "c. 1912",
@@ -307,6 +335,7 @@ for d in test_data:
     stripped_test_data.append(date)
 
 print(stripped_test_data)
+
 """
 """
 # 8. Parsing Numbers from Complex Strings, Part Two
@@ -325,7 +354,7 @@ Where there is a year range, we'll average the two years.
     => we'll average the two years.
 
 """
-"""
+"""                                                                              # 가장 중요, 각각 목적 차이점 이해 
 three_peat = "1991-1993"
 print(three_peat.split("-"))
 
@@ -350,16 +379,18 @@ stripped_test_data = ['1912', '1929', '1913-1923',
                       '1955', '1970', '1990-1999']
 
 
-def process_date(date):                                                         # 중요합니다. 
+def process_date(date):
     if "-" in date:
         split_date = date.split("-")
-        date_one = split_date[0]
-        date_two = split_date[1]
-        date = (int(date_two) + int(date_one)) / 2
+        date_0 = int(split_date[0])
+        date_1 = int(split_date[1])
+        date = (date_1 + date_0) / 2
         date = round(date)
-    else: 
-        date = int(date)
+    else:
+        date = int(date) 
+
     return date
+
 
 processed_test_data = []
 for d in stripped_test_data:
@@ -368,25 +399,77 @@ for d in stripped_test_data:
 
 print(processed_test_data)
 
-# Once your code works with the test data, you can then iterate over 
-# the moma list of lists. In each iteration:
 
-for row in moma:
-    data = row[6]
 
-    data = strip_characters(data)
-    data = process_date(data)
-    row[6] = data
+
+
+
+
+
+
+# def process_date(date):
+#     if "-" in date:
+#         split_date = date.split("-")
+#         date_one = int(split_date[0])
+#         date_two = int(split_date[1])
+#         date = (date_two + date_one) / 2
+#         date = round(date)
+#     else:
+#         date = int(date)
+
+#     return date 
+
+# processed_test_data = []
+# for d in stripped_test_data:
+#     date = process_date(d)
+#     processed_test_data.append(date)
+
+# print(processed_test_data)
 """
+
+
+# def process_date(date):                                                         # 중요합니다. 
+#     if "-" in date:
+#         split_date = date.split("-")
+#         date_one = split_date[0]
+#         date_two = split_date[1]
+#         date = (int(date_two) + int(date_one)) / 2
+#         date = round(date)
+#     else: 
+#         date = int(date)
+#     return date
+
+# processed_test_data = []
+# for d in stripped_test_data:
+#     d = process_date(d)
+#     processed_test_data.append(d)
+
+# print(processed_test_data)
+
+# # Once your code works with the test data, you can then iterate over 
+# # the moma list of lists. In each iteration:
+
+# for row in moma:
+#     data = row[6]
+
+#     data = strip_characters(data)
+#     data = process_date(data)
+#     row[6] = data
+
 
     # Slice characters from a string by position:
 last_five_chars = "This is a long string."[:5]
 print(last_five_chars)
 
+university = "Busan National University"[:7]
+print(university)
+
     # Concatenate strings:
 superman = "Clark" + " " + "Kent"
 print(superman)
 
+superking = "Bo" + "hyun" + " " + "Park"
+print(superking)
 
 superman1 = "Clark \
 Kent"
@@ -394,3 +477,4 @@ print(superman1)
 
 superman2 = "Bohyun" + " " + "Park"
 print(superman2)
+
