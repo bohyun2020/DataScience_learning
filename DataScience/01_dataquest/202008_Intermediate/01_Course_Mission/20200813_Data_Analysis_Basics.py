@@ -74,7 +74,6 @@ for row in moma:
         gender_freq[gender] = 1
     else:
         gender_freq[gender] += 1
-print(gender_freq)
 
 # 2) Exercise
 artist_freq = {}                                                                                
@@ -86,14 +85,14 @@ for row in moma:
         artist_freq[artist] += 1 
 
 
-
 def artist_summary(artist):
-    num_artworks = artist_freq[artist]
+    num_artworks = artist_freq[artist]      # freq table key/value를 불러 오는 게 중요하다. *** 중요 ****
     template = "There are {num} artworks by {name} in the data set"
     output = template.format(name=artist, num=num_artworks)
     print(output)
 
-artist_summary("Henri Matisse")
+artist_summary("Sarah Charlesworth")
+
 """
 """
 # 8. Formatting Numbers Inside Strings                                          * 매우 중요
@@ -110,6 +109,7 @@ artist_summary("Henri Matisse")
 """
 num = 32.554865
 print("I own {pct}% of the company".format(pct=num))
+print("I own {pct:,.2f}% of the company".format(pct=num))
 
 """
 """
@@ -118,6 +118,10 @@ print("I own {pct}% of the company".format(pct=num))
     by adding one of various format specifications inside the braces ({}) of our string.
 """
 """
+print("I own {pct:.2f}% of the company".format(pct=32.554865))
+print("I own {:.2f}% of the company".format(32.554865))
+
+
 print("I own {pct:.2f}% of the company".format(pct=32.554865))
 print("I own {:.2f}% of the company".format(32.554865))
 
@@ -139,17 +143,12 @@ print("The approximate population of {0} is {1}".format("India",1324000000))
 print("The approximate population of {0} is {1:,}".format("India",1324000000))
 
 print("Your bank balance is ${bal:,.2f}".format(bal=12345.678))
-"""
-"""
-    #4 ) Exercise
 
-pop_millions = [
-    ["China", 1379.302771],
-    ["India", 1281.935991],
-    ["USA",  326.625791],
-    ["Indonesia",  260.580739],
-    ["Brazil",  207.353391],
-]
+print("{name} have earned ${num:,.2f} dollars from stock market".format(name='Bohyun', num=100000.585))
+print("{} have earned ${:,} dollars from stock market".format('Bohyun', 100000))
+
+"""
+"""
 
 # 1) 내가 푼 것 
 
@@ -168,10 +167,11 @@ for country in pop_millions:
     pop = country[1]
     output = template.format(name, pop)
     print(output)
-"""
+
 
 # 9. Challenge: Summarizing Artwork Gender Data
 
+"""
 """
     # 1) Sample
 
@@ -182,7 +182,8 @@ fruit_freq = {
 }
 
 for fruit, qty in fruit_freq.items():
-    output = "I have {q} {f}s".format(f=fruit, q=qty)
+    fruit = fruit.title()
+    output = "I bought {q} pieces of {f}".format(f=fruit, q=qty)
     print(output)
 """
 """
@@ -201,11 +202,10 @@ for row in moma:
     if gender not in gender_freq:
         gender_freq[gender] = 1
     else:
-        gender_freq[gender] += 1
+        gender_freq[gender] += 1 
 
-template = "There are {f:,.2f} artworks by {g} artists"
+template = "There are {n:,.2f} artworks by {g} artists"
 for gender, freq in gender_freq.items():
-    output = template.format(g=gender, f=freq)
+    output = template.format(g=gender, n=freq)
     print(output)
-
 """

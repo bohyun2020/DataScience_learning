@@ -37,6 +37,45 @@ for row in moma:
     date = row[6]
     if date != "":
         date = int(date)
+
+ages = []
+for row in moma:
+    birth_date = row[3]
+    date = row[6]
+
+    if type(birth_date) != int:
+        age = 0
+    else:
+        age = date - birth
+    ages.append[age]
+
+final_ages = []
+for age in ages:
+    if age > 20:
+        final_age = age 
+    else:
+        final_age = "Unknown"
+    final_ages.append(final_age)
+
+
+
+
+for row in moma:
+    birth_date = row[3]
+    if birth_date != "":
+        birth_date = int(birth_date)
+    row[3] = birth_date
+
+for row in moma:
+    death_date = row[4]
+    if death_date != "":
+        death_date = int(death_date)
+    row[4] = death_date
+
+for row in moma:
+    date = row[6]
+    if date != "":
+        date = int(date)
     row[6] = date
 
 """
@@ -106,6 +145,15 @@ print(final_ages)
     # 1) Example
          # 1. Convert the integer value to a string.
          # 2. Use slicing to slice all but the last character.
+
+age1 = 112
+decade = str(age1)
+decade = decade[:-1]
+decade = decade + "0s"
+print(decade)
+
+
+
 age = 125
 decade = str(age)
 decade = decade[:-1] 
@@ -158,19 +206,19 @@ for age in ages:
         final_age = age
     final_ages.append(final_age)
 
-
 decades = []
 for age in final_ages:
     if age == "Unknown":
-        decade = "Unkown"
+        decade = "Unknown"      # age 라고 variable를 지정하지말고, decade로 명해야 한다.
     else:
-        decade = str(age)
+        decade = str(age)      
         decade = decade[:-1]
-        decade = decade + "Os"
+        decade = decade + "0s"
     decades.append(decade)
+
 print(decades)
 """
-
+"""
 # 4. Summarizing the Decade Data
 
     # Frequency table lists how many of each item there are in a collection of items.
@@ -178,18 +226,19 @@ print(decades)
     # 1. Sample
 
 """
+"""
 fruit = ['orange', 'orange', 'orange', 'banana',
          'apple', 'banana', 'orange', 'banana',
          'apple', 'banana']
 
 fruit_freq = {}
 for f in fruit:
-    if f not in fruit_freq:
-        fruit_freq[f] = 1
+    if f in fruit_freq:
+        fruit_freq[f] += 1 
     else:
-        fruit_freq[f] += 1
-
+        fruit_freq[f] = 1
 print(fruit_freq)
+
 """
 """
 from csv import reader 
@@ -253,7 +302,7 @@ for decade in decades:
     if decade not in decade_frequency:
         decade_frequency[decade] = 1
     else:
-        decade_frequency[decade] += 1 
+        decade_frequency[decade] += 1
 print(decade_frequency)
 
 """
@@ -271,16 +320,16 @@ print(output)
     # As you can see, our code is very easy to understand, 
     #   str.format() converts the integer to a string for us.
 
-result = "{}'s favorite number is {}".format("Bohyun", 7)                       # 중요
-print(result)
+output = "{}'s favorite number is {}".format('Bohyun', 7)
+print(output)
+
 
 # 3) Sample
     # If we want to specify ordering and/or repeat numbers, we can use integers:
 
-result_1 = "{0}'s favorite number is {1}. {1} is {0}'s favoirte number".format("Bohyun", 7)    
+result_1 = "{0}'s favorite number is {1}. {0}'s favorite number is {1}".format('Bohyun', 7)
 print(result_1)
-"""
-"""
+
 # 4) Sample
 
     # Keyword arguments
@@ -289,16 +338,17 @@ we can use those names inside our braces. Because our string is becoming long,
 we're going to create a separate template string, and call the str.format() 
 directly on it:
 
+We recommend being mindful of readability.
+
 If what you're doing has some complexity, using numbers or names 
 inside the braces definitely makes things easier!
-"""
-"""
-result_2 = "{name}'s favorite number is {num}. \
-{num} is {name}'s favorite number".format(name="Songi", num=1)
-print(result_2)
-"""
-"""
 
+result_2 ="{name}'s favorite color is {color} \
+{color} is {name}'s favorite color.".format(name='Bohyun', color='Blue')
+print(result_2)
+
+"""
+"""
     # Exercise
 artist = "Pablo Picasso"
 birth_year = 1881
@@ -390,10 +440,8 @@ for row in moma:
     if gender not in gender_freq:
         gender_freq[gender] = 1
     else:
-        gender_freq[gender] += 1
-print(gender_freq)
+        gender_freq[gender] += 1 
 
-# 2) Exercise
 artist_freq = {}                                                                                
 for row in moma:
     artist = row[1]
