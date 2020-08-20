@@ -163,7 +163,7 @@ result = newlist.first_method()
 
 """
 """
-1) Sample
+# 1) Sample
 class MyClass():
     def return_string(self, string):
         return string
@@ -214,10 +214,16 @@ class MyClass():
     def __init__(self, string):
         self.my_attribute = string  # string = "Hola!"
 
+    def study_hard(self, name):
+        name = name.title()
+        msg = "{}! Welcome to our studying place".format(name)
+        return msg 
+
+
 mc = MyClass("Hola!") # now we have stored "Hola" in the attribute my_attribute inside our object.
 print(mc.my_attribute) # Like methods, attributes are accessed using dot notation, 
                        #    but attributes don't have parentheses like methods do. 
-
+print(mc.study_hard("bohyun"))
 """
 """
 Let's take a moment to summarize what we've learned so far:
@@ -231,8 +237,7 @@ Let's take a moment to summarize what we've learned so far:
 """
 """
 # 3) Exercise
-class NewList(DQ):
-
+class NewList():
 
     def __init__(self, initial_state):
         self.data = initial_state
@@ -252,11 +257,24 @@ print(my_list)
 
 my_list = [1, 2, 3]
 new_item = 4
-new_item_list = [new_item]
+new_item_list = [new_item]  
 my_list = my_list + new_item_list
 print(my_list)
+
 """
 """
+# class NewList():
+
+#     def __init__(self, new_list):
+#         self.data = new_list
+
+#     def append(self, add_value):
+#         all_list = self.data + [add_value]
+#         return all_list
+
+# list1 = NewList([1, 2, 3, 4])
+# print(list1.append(5))
+
 class NewList():
    
     def __init__(self, initial_state):
@@ -270,30 +288,32 @@ print(my_list.data)
 
 my_list.append(6)
 print(my_list.data)
+
 """
 """
 # 10. Creating and Updating an Attribute
 
 class NewList():
-    
+   
     def __init__(self, initial_state):
         self.data = initial_state
+        self.cal_length()
 
-        # We added code below this comment
-        length = 0 
+    def cal_length(self):
+        length = 0
         for item in self.data:
             length += 1
         self.length = length
-        # We added code above this comment
-    
-    def append(self, new_item):
-       
-        self.data = self.data + [new_item]
 
-my_list = NewList([1, 2, 3])
+    def append(self, new_item):
+        self.data += [new_item]
+        self.cal_length()
+
+
+my_list = NewList([1, 2, 3, 4, 5])
 print(my_list.length)
 
-my_list.append(4)
+my_list.append(6)
 print(my_list.length)
 """
 """
@@ -302,7 +322,25 @@ Rather than writing the code out twice, we can add a helper method,
 which calculates the length, and just call that method in the appropriate places.
 
 """
-"""
+
+class MyBankBalance():
+
+    def __init__(self, total_amount):
+        self.bank_balance = total_amount
+        self.string_format()
+
+    def string_format(self):
+        self.balance_format = "$ {:,.2f}".format(self.bank_balance) 
+
+
+    def add_value(self, value):
+        self.bank_balance += value
+        self.string_format()
+
+balance = MyBankBalance(300)
+print(balance.balance_format)
+
+
 # 1) Sample
 class MyBankBalance():
     # An object that tracks a bank account balance
@@ -326,30 +364,23 @@ print(mbb.string)
 
 mbb.add_value(5000)
 print(mbb.string)
-"""
 
+"""
 class NewList():
-    """
-    A Python list with some extras!
-    """
+  
     def __init__(self, initial_state):
         self.data = initial_state
         self.calc_length()
     
     def calc_length(self):
-        """
-        A helper function to calculate the .length
-        attribute.
-        """
+    
         length = 0
         for item in self.data:
             length += 1
         self.length = length
     
     def append(self, new_item):
-        """
-        Append `new_item` to the NewList
-        """
+
         self.data = self.data + [new_item]
         self.calc_length()
 
@@ -358,3 +389,9 @@ print(fibonacci.length)
 
 fibonacci.append(8)
 print(fibonacci.length)
+"""
+"""
+ex = "1, 2, 3,,4,"
+ex = ex.split(",", maxsplit=1)
+print(ex)
+"""
