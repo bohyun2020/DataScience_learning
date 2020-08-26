@@ -1,16 +1,6 @@
-class MyBankBalance():
+import datetime as dt
 
-    def __init__(self, total_amount):
-        self.bank_balance = total_amount
-        self.string_format()
-
-    def string_format(self):
-        self.balance_format = "${:,.2f}".format(self.bank_balance) 
-
-
-    def add_value(self, value):
-        self.bank_balance += value
-        self.string_format()
-
-balance = MyBankBalance(5000)
-print(balance.balance_format)
+date_1_str = "24/12/1984"
+date_1_dt = dt.datetime.strptime(date_1_str, "%d/%m/%Y")
+print(type(date_1_dt))
+print(date_1_dt)
