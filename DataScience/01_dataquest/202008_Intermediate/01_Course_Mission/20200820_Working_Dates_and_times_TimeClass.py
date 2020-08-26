@@ -78,3 +78,207 @@ for row in potus:
     app_t = app_dt.time()
     appt_times.append(app_t)
 """
+"""
+
+8. Comparing time objects
+
+    A useful feature of time objects is that they support comparisons.
+    We can test if one time is greater - or later - than another:
+
+"""
+"""
+# 1) Sample
+
+import datetime as dt
+
+
+t1 = dt.time(15, 30)
+t2 = dt.time(10, 45)
+
+comparison = t1 > t2
+print(t1)
+print(t2)
+print(comparison)
+
+"""
+"""
+# 2) Sample
+    # Because these comparison operations are supported, 
+    # Python built-in functions like min() and max() can also be used:
+
+
+import datetime as dt 
+
+times = [
+            dt.time(23, 30),
+            dt.time(14, 45),
+            dt.time(8, 0)
+        ]
+print(min(times))
+print(max(times))
+
+"""
+"""
+
+# 3) Exercise 
+
+appt_times = []
+for row in potus:
+    app_dt = row[2]
+    app_t = app_dt.time()
+    appt_times.append(app_t)
+
+min_time = min(appt_times)
+max_time = max(appt_times)
+
+"""
+"""
+    # 9. Calculations with Dates and Times
+
+    - Just like time objects, datetime objects support comparison operators 
+    like > and <.
+    - Let's experiment with mathematical operators like - and + to see if they work too
+
+"""
+"""
+# 1) Sample
+#   TypeError: unsupported operand type(s) for +: 'datetime.datetime' and 'datetime.datetime'
+
+import datetime as dt
+
+dt1 = dt.datetime(2002, 5, 1)
+dt2 = dt.datetime(2002, 4, 1)
+print(dt1 + dt2)
+
+"""
+"""
+# 2) Sample
+    # When we use the - operator with two date objects, 
+    # the result is the time difference between the two datetime objects
+
+import datetime as dt
+
+dt1 = dt.datetime(2002, 5, 1)
+dt2 = dt.datetime(2002, 4, 1)
+diff = dt1 - dt2
+
+print(diff)
+print(type(diff))
+
+"""
+"""
+
+# 3) Sample
+    1) We observed that we can create an object of the timedelta class using the - operator, 
+    2) but we can also instantiate a timedelta class directly.
+
+    datetime.timedelta(days=0, seconds=0, microseconds=0, milliseconds=0, minutes=0, hours=0, weeks=0)
+
+    You might notice that the ordering of the parameters doesn't follow the 
+    order you might expect, and for this reason it can be clearer to use keyword
+    arguments when instantiating objects if we are using anything other than days:
+
+"""
+"""
+# Use keyword arguments
+
+import datetime as dt 
+
+two_days = dt.timedelta(2)
+print(two_days)
+
+three_weeks = dt.timedelta(weeks=3)
+print(three_weeks)
+
+time_4 = dt.timedelta(hours=4, minutes=30, seconds=30)
+print(time_4)
+
+"""
+"""
+
+# 4) Sample
+    # We can also use timedelta objects to add or subtract time from datetime objects
+
+import datetime as dt 
+
+d1 = dt.datetime(1987, 2, 26)
+d1_plus_1wk = d1 + dt.timedelta(weeks=1)
+print(d1)
+print(d1_plus_1wk)
+
+"""
+"""
+# 5) Exercise
+
+import datetime as dt
+
+dt_1 = dt.datetime(1981, 1, 31)
+dt_2 = dt.datetime(1984, 6, 28)
+dt_3 = dt.datetime(2016, 5, 24)
+dt_4 = dt.datetime(2001, 1, 1, 8, 24, 13)
+
+answer_1 = dt_2 - dt_1
+answer_2 = dt_3 + dt.timedelta(days=56)
+ansewr_3 = dt_4 - dt.timedelta(seconds=3600)
+
+"""
+"""
+
+# 10. Summarizing Appointment Lengths
+    # we're going to use what we've learned to analyze the lengths of meetings
+
+"""
+"""
+# 1) Sample
+import datetime as dt 
+
+start_time = dt.datetime(2015, 1, 6, 9, 30)
+end_time = dt.datetime(2015, 1, 6, 10, 30)
+meeting_length = end_time - start_time
+print(meeting_length)
+"""
+"""
+# 2) Sample
+    # 1. Create a frequency table of the meeting times.
+    # 2. Calculate the minimum and maximum value for the appointment lengths.
+
+import datetime as dt
+
+length_counts = {
+                  dt.timedelta(minutes=15): 21,
+                  dt.timedelta(hours=3): 1,
+                  dt.timedelta(seconds=45): 15
+                }
+
+print(min(length_counts))
+print(max(length_counts))
+"""
+"""
+# 3) Exercise
+
+from csv import reader, writer
+import datetime as dt
+
+opened_file = open("potus_visitors_2015.csv")
+read_file = reader(opened_file)
+potus = list(read_file)
+potus = potus[1:]
+
+for row in potus:
+    end_date = row[3]
+    end_date = dt.datetime.strptime(end_date, "%m/%d/%y %H:%M")
+    row[3] = end_date
+
+appt_lengths = {}
+for row in potus:
+    start_date = row[2]
+    length = end_date - start_date
+    if length not in appt_lengths:
+        appt_lengths[length] = 1
+    else:
+        appt_lengths[length] += 1 
+
+print(min(appt_lengths))
+print(max(appt_lengths))
+
+"""
