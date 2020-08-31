@@ -18,6 +18,7 @@ print(two_thirty)
 five_sec_after_8am = dt.time(8, 0, 5)
 print(five_sec_after_8am)
 
+
 """
 """
 # 2) Sample
@@ -25,6 +26,10 @@ print(five_sec_after_8am)
     #   Why? -> Another way to represent time 
 
 import datetime as dt
+
+bohyun_birth_date = dt.datetime(1987, 2, 26, 13, 36)
+bohyun_birth_time = bohyun_birth_date.time()
+print(bohyun_birth_time)
 
 jfk_shot_dt = dt.datetime(1963, 11, 22, 12, 30)
 jfk_shot_t = jfk_shot_dt.time()
@@ -42,9 +47,8 @@ import datetime as dt
 
 time_str = "8:00"
 time_dt = dt.datetime.strptime(time_str, "%H:%M")
-print(time_dt)
-
 time_t = time_dt.time()
+print(time_dt)
 print(time_t)
 
 """
@@ -58,7 +62,7 @@ import datetime as dt
 
 time_t = dt.time(2, 26)
 hour = time_t.hour
-minute = time_t.minute
+minute = time_t.minute   
 
 print(time_t)
 print(hour)
@@ -76,7 +80,8 @@ appt_times = []
 for row in potus:
     app_dt = row[2]
     app_t = app_dt.time()
-    appt_times.append(app_t)
+    app_times.append(app_t)
+
 """
 """
 
@@ -87,18 +92,17 @@ for row in potus:
 
 """
 """
+
 # 1) Sample
 
 import datetime as dt
 
-
-t1 = dt.time(15, 30)
-t2 = dt.time(10, 45)
+t1 = dt.time(6, 30)
+t2 = dt.time(15, 30)
 
 comparison = t1 > t2
-print(t1)
-print(t2)
 print(comparison)
+
 
 """
 """
@@ -110,12 +114,14 @@ print(comparison)
 import datetime as dt 
 
 times = [
-            dt.time(23, 30),
-            dt.time(14, 45),
-            dt.time(8, 0)
+            dt.time(2, 30),
+            dt.time(8, 30),
+            dt.time(12, 30),
         ]
+
 print(min(times))
 print(max(times))
+
 
 """
 """
@@ -128,8 +134,9 @@ for row in potus:
     app_t = app_dt.time()
     appt_times.append(app_t)
 
-min_time = min(appt_times)
-max_time = max(appt_times)
+print(min(appt_times))
+print(max(appt_times))
+
 
 """
 """
@@ -158,8 +165,8 @@ print(dt1 + dt2)
 
 import datetime as dt
 
-dt1 = dt.datetime(2002, 5, 1)
-dt2 = dt.datetime(2002, 4, 1)
+dt1 = dt.datetime(2002, 5, 1, 12, 30)
+dt2 = dt.datetime(2002, 4, 1, 2, 25)
 diff = dt1 - dt2
 
 print(diff)
@@ -182,7 +189,7 @@ print(type(diff))
 """
 # Use keyword arguments
 
-import datetime as dt 
+import datetime as dt
 
 two_days = dt.timedelta(2)
 print(two_days)
@@ -190,8 +197,18 @@ print(two_days)
 three_weeks = dt.timedelta(weeks=3)
 print(three_weeks)
 
-time_4 = dt.timedelta(hours=4, minutes=30, seconds=30)
-print(time_4)
+time_4 = dt.timedelta(hours=4, minutes=30, seconds=30, weeks=1, microseconds=125, milliseconds=80)
+print(time_4) 
+
+
+# two_days = dt.timedelta(2)
+# print(two_days)
+
+# three_weeks = dt.timedelta(weeks=3)
+# print(three_weeks)
+
+# time_4 = dt.timedelta(hours=4, minutes=30, seconds=30)
+# print(time_4)
 
 """
 """
@@ -202,9 +219,9 @@ print(time_4)
 import datetime as dt 
 
 d1 = dt.datetime(1987, 2, 26)
-d1_plus_1wk = d1 + dt.timedelta(weeks=1)
-print(d1)
-print(d1_plus_1wk)
+d2 = dt.timedelta(weeks=1)
+d1_plus_d2 = d1 + d2
+print(d1_plus_d2)
 
 """
 """
@@ -219,7 +236,11 @@ dt_4 = dt.datetime(2001, 1, 1, 8, 24, 13)
 
 answer_1 = dt_2 - dt_1
 answer_2 = dt_3 + dt.timedelta(days=56)
-ansewr_3 = dt_4 - dt.timedelta(seconds=3600)
+answer_3 = dt_4 - dt.timedelta(seconds=3600)
+
+print(answer_1)
+print(answer_2)
+print(answer_3)
 
 """
 """
@@ -232,10 +253,11 @@ ansewr_3 = dt_4 - dt.timedelta(seconds=3600)
 # 1) Sample
 import datetime as dt 
 
-start_time = dt.datetime(2015, 1, 6, 9, 30)
-end_time = dt.datetime(2015, 1, 6, 10, 30)
+start_time = dt.datetime(2020, 8, 31, 9, 30)
+end_time = dt.datetime(2020, 8 , 31, 10, 30)
 meeting_length = end_time - start_time
 print(meeting_length)
+
 """
 """
 # 2) Sample
@@ -245,15 +267,18 @@ print(meeting_length)
 import datetime as dt
 
 length_counts = {
-                  dt.timedelta(minutes=15): 21,
-                  dt.timedelta(hours=3): 1,
-                  dt.timedelta(seconds=45): 15
+                    dt.timedelta(minutes=15): 21,
+                    dt.timedelta(hours=3): 1,
+                    dt.timedelta(seconds=30): 10,
                 }
 
 print(min(length_counts))
 print(max(length_counts))
+print(length_counts)
+
 """
 """
+
 # 3) Exercise
 
 from csv import reader, writer
@@ -266,7 +291,7 @@ potus = potus[1:]
 
 for row in potus:
     end_date = row[3]
-    end_date = dt.datetime.strptime(end_date, "%m/%d/%y %H:%M")
+    end_date = dt.datetime.strptime(end_date, "%m/%d/%y %H:%M")                 # 데이터를 if로 sort 하지? 
     row[3] = end_date
 
 appt_lengths = {}
@@ -276,7 +301,7 @@ for row in potus:
     if length not in appt_lengths:
         appt_lengths[length] = 1
     else:
-        appt_lengths[length] += 1 
+        appt_lengths[length] += 1
 
 print(min(appt_lengths))
 print(max(appt_lengths))

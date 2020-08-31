@@ -1,5 +1,5 @@
 """
-from csv import reader, writer 
+from csv import reader, writer
 
 opened_file = open('potus_visitors_2015.csv')
 read_file = reader(opened_file)
@@ -111,7 +111,7 @@ print(date_1_obj)
 
 """
 """
-# 3) Exercise                                                                   # if를 써서 이상한 것만 수정해야함
+# 3) Exercise                                                                   # 모르겠음 - if를 써서 이상한 것만 수정해야함
 
 from csv import reader, writer
 import datetime as dt
@@ -127,7 +127,8 @@ for row in potus:
     start_date = dt.datetime.strptime(start_date, data_format)
     row[2] = start_date
 
-"""   
+
+"""
 """
 # 6. Using Strftime to format dates
 
