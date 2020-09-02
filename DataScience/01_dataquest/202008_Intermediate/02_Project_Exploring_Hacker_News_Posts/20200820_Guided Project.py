@@ -122,19 +122,18 @@ opened_file = open('hacker_news.csv', encoding='ISO-8859-1')
 hn = list(csv.reader(opened_file))
 hn = hn[1:]
 
-opened_file = open('hacker_news.csv', encoding='ISO-8859-1')
-hn = list(csv.reader(opened_file))
-hn = hn[1:]
-
 
 # 2) Extracting Ask HN and Show HN Posts
 
 ask_posts = []
-show_posts =[]
+show_posts = []
 other_posts = []
+
 
 for post in hn:
     title = post[1].lower()
+    num_comments = int(post[4])
+
     if title.startswith('ask hn'):
         ask_posts.append(post)
     elif title.startswith('show hn'):
@@ -142,13 +141,14 @@ for post in hn:
     else:
         other_posts.append(post)
 
+
 # 3) Calculating the Average Number of Comments for Ask HN and Show HN Posts
 
 total_ask_comments = 0
 
 for post in ask_posts:
     num_comments = int(post[4])
-    total_ask_comments += int(post[4])
+    total_ask_comments += num_comments
 
 avg_ask_comments = total_ask_comments / len(ask_posts)
 
@@ -159,10 +159,10 @@ for post in show_posts:
 
 avg_show_posts = total_show_posts / len(show_posts)
 
-"""
 
+"""
 # On average, ask posts in our sample receive approximately 14 comments, 
-# whereas show posts recieve approximately 10. Since ask posts are more likely 
+# whereas show posts receive approximately 10. Since ask posts are more likely 
 # to receive comments. we'll focus our remaining analysis just on these posts.
 
 """
@@ -172,35 +172,40 @@ avg_show_posts = total_show_posts / len(show_posts)
     and the number of comments received.
 
 """
+
 result_list = []
 
-import datetime as dt 
+import datetime as dt
 
 for post in ask_posts:
     result_list.append(
             [post[6], int(post[4])]
         )
 
+# 2개 변수 적용을 위해서 Dict 사용
 comments_by_hour = {}
 counts_by_hour = {}
 date_format = "%m/%d/%Y %H:%M"
 
-for each_row in result_list:
-    date = each_row[0]
-    comment = each_row[1]
+for row in result_list:
+    date = row[0]
+    comment = row[1]
     time = dt.datetime.strptime(date, date_format).strftime("%H")
+
     if time in counts_by_hour:
+        comments_by_hour[time] += comment
         counts_by_hour[time] += 1
-        comments_by_hour[time] += comment 
     else:
+        comments_by_hour[time] = comment
         counts_by_hour[time] = 1
-        comments_by_hour[time] = comment 
+
 
 # Calculate the average amount of comments 'Ask HN' posts created at each hour of the day receive.
 avg_by_hour = []
 
 for hr in comments_by_hour:
     avg_by_hour.append([hr, comments_by_hour[hr] / counts_by_hour[hr]])
+
 
 """
 
@@ -215,14 +220,12 @@ for row in avg_by_hour:
 
 sorted_swap = sorted(swap_avg_by_hour, reverse=True)
 
-
 # Sort the values and print the the 5 hours with the highest average comments.
 
-print("Top 5 Hours for 'Ask HN' Comments")
+print("Top 5 Hour for 'Ask HN' Comments")
 for avg, hr in sorted_swap[:5]:
-    print(
-        "{}: {:.2f} average comments per post".format(
-            dt.datetime.strptime(hr, "%H").strftime("%H:%M"), avg)
+    print('{}: {} average comments per post'.format(
+        dt.datetime.strptime(hr, "%H").strftime("%H:%M"), avg)
         )
 
 """
@@ -235,3 +238,4 @@ According to the data set documentation, the timezone used is Eastern Time in th
 So, we could also write 15:00 as 3:00 pm est.
 
 """
+
