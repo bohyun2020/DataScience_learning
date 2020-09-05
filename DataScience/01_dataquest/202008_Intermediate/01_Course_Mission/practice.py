@@ -1,15 +1,8 @@
-from csv import reader, writer
-import datetime as dt
+import csv
+import numpy as np
 
-opened_file = open('potus_visitors_2015.csv')
-read_file = reader(opened_file)
-potus = list(read_file)
-potus = potus[1:]
+opened_file = open('nyc_taxis.csv')
+taxi_list = list(csv.reader(opened_file))
+taxi_list = taxi_list[1:]
 
-data_format = "%m/%d/%y %H:%M"
-for row in potus:
-    start_date = row[2]
-    start_date = dt.datetime.strptime(start_date, data_format)
-    row[2] = start_date
-
-print(potus[:5])
+print(taxi_list)
